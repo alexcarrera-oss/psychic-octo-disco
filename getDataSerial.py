@@ -3,20 +3,18 @@ import serial
 ser = serial.Serial("COM7", 9600)  # open serial port
 
 def message():
-    
     line = ser.readline().decode()
 
     
     k = str_to_list(line)
 
     l = treat(k)
-  
     return(l)
-    
+    #r = resulta()
 
 #2477 X5531 Y5324 Z5535 I5496 J5499 K5558 S5500 F
 
-def treat(k):
+def treat(k):  # normalise les valeurs
     i = 0
     res = []
     para = [1000,5500]
@@ -27,15 +25,13 @@ def treat(k):
                 res.append(((int(j)-para[i]))/10)
             
                 i =  1
-            res.append((int(j)-para[i])/10)
-
+            else:
+                res.append((int(j)-para[i])/10)
 
     return(res)
 
-def str_to_list(m):
+def str_to_list(m): #segmente le message et verifie contenu/taille
     
-    
-    num = {"0","1","2","3","4","5","6","7","8","9"}
     ref = ["X","Y","Z","I","J","K","S","F"] #8
     out = []
     k = ""
@@ -45,20 +41,16 @@ def str_to_list(m):
     restemp: str = ""
  
     for n in m:
-        if(n in num or n in ref):
+        if(n.isdigit() or n in ref):
             k = k + n
             
-
-
-
-
 
 
     for j in k:
         if(len(k)!=taille):
             q = False
             #print("Erreurl", i)
-            return("NaN")
+            return(["NaN","NaN","NaN","NaN","NaN"])
 
         if(k[taille-1]!=ref[-1]):
             q = False
@@ -84,37 +76,14 @@ def str_to_list(m):
                 else:            
                     q = False                 
         else:
-            print("Erreu3r", i)
+            #print("Erreur 3", i)
             return(["NaN","NaN","NaN","NaN","NaN"])
     if(len(out)==len(ref)):
         
         return(out)
     else:
         q = False
-        print("Erreur Taill2e", i)
+        #print("Erreur Taille 2", i)
         return(["NaN","NaN","NaN","NaN","NaN"])
     
-
-def getValues(k):
-    res = []
-    for j in k:
-        res.append(int(j)-5500)
-
-    return(res)
-
-
-    
-  
-def write(m):
-    root.after(1, m)
-
-
-
-def partial(m):
-    res = []
-    for j in m:
-        res.append("T: "+j)
-
-    return(res)
-
 
