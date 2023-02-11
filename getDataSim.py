@@ -1,24 +1,29 @@
 
 import random
 import time
-def message():
+import datetime
+import getTime
+
+
+
+
+
+def message(now):
     
-    l = getRand()
-    print(l)
+    l = getRand(now)
+   
     return(l)
    
 
-#2477 X5531 Y5324 Z5535 I5496 J5499 K5558 S5500 F
-
-def getRand():
+def getRand(n):
     res = [0,0,0,0,0,0,0,0]
 
+    res[0]= round(getTime.now()-n,1)
     res[7]=1
     
     for i in range(1,7):
         
-        res[i]=round(random.uniform(-50, 50),2)
-   
+        res[i]=round(random.uniform(-50, 50),1)
 
     return(res)
-message()
+
