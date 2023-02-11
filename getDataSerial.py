@@ -2,18 +2,6 @@ import serial
 
 ser = serial.Serial("COM7", 9600)  # open serial port
 
-def message():
-    line = ser.readline().decode()
-
-    
-    k = str_to_list(line)
-
-    l = treat(k)
-    return(l)
-    #r = resulta()
-
-#2477 X5531 Y5324 Z5535 I5496 J5499 K5558 S5500 F
-
 def treat(k):  # normalise les valeurs
     i = 0
     res = []
@@ -87,3 +75,8 @@ def str_to_list(m): #segmente le message et verifie contenu/taille
         return(["NaN","NaN","NaN","NaN","NaN"])
     
 
+
+def message():
+ 
+    return(treat(str_to_list(ser.readline().decode())))
+  
